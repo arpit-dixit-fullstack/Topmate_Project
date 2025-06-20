@@ -65,7 +65,7 @@ export function SignupPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await axios.post("http://localhost:8000/api/register", formData)
+    let response = await axios.post("https://topmate-project.onrender.com/api/register", formData)
     if (response.data) {
       alert("Successfully")
     }
