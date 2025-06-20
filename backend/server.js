@@ -5,7 +5,10 @@ require("dotenv").config()
 require("./Connection/Connect")
 const userApi = require("./routes/Route")
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+  origin: "topmate-project.vercel.app", // your frontend domain
+  credentials: true
+}));
 app.use(express.urlencoded({extended:true}))
 app.use('/api',userApi)
 
