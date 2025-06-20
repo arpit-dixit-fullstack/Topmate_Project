@@ -1,17 +1,26 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-require("dotenv").config()
-require("./Connection/Connect")
-const userApi = require("./routes/Route")
-app.use(express.json())
-app.use(cors({
-  origin: "topmate-project.vercel.app", // your frontend domain
-  credentials: true
-}));
-app.use(express.urlencoded({extended:true}))
-app.use('/api',userApi)
+require("dotenv").config();
 
-app.listen(process.env.PORT, () => {
-    console.log("server is started")
-})
+const connectDB = require("./Connection/Connect");
+const userApi = require("./routes/Route");
+
+const app = express();
+
+// Connect to MongoDB
+connectDB();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cors({
+  origin: "https://topmate-project.vercel.app",
+  credentials: true,
+}));
+
+app.use('/api', userApi);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`✅ Server started on port ${PORT}`);
+});
